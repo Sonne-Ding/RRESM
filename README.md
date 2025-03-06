@@ -8,6 +8,9 @@ Real-time acquisition of accurate depth of scene is essential for automated robo
 
 ## Samples
 Using dataset [SCARED](https://endovissub2019-scared.grand-challenge.org) and [SERV-CT](https://www.ucl.ac.uk/interventional-surgical-sciences/weiss-open-research/weiss-open-data-server/serv-ct).
+### Samples on SCARED
+![sample](./assets/sample1.png)
 
-
+### Samples on SERV-CT
+![sample](./assets/sample2.png)
 
