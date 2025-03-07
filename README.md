@@ -11,7 +11,8 @@ Using dataset [SCARED](https://endovissub2019-scared.grand-challenge.org) and [S
 ### Samples on SCARED
 ![sample](./assets/sample1.png)
 
-<embed src="./assets/videos/LightEndoStereo_demo.mp4" />
+<!-- <embed src="./assets/videos/LightEndoStereo_demo.mp4" /> -->
+<object data="./assets/videos/LightEndoStereo_demo.mp4"></object>
 
 ### Samples on SERV-CT
 ![sample](./assets/sample2.png)
