@@ -11,6 +11,19 @@ Using dataset [SCARED](https://endovissub2019-scared.grand-challenge.org) and [S
 ### Samples on SCARED
 ![sample](./assets/sample1.png)
 
+
+<video id="myVideo" src="assets/videos/LightEndoStereo_demo.mp4" controls></video>
+<button onclick="playVideo()">Play</button>
+<button onclick="pauseVideo()">Pause</button>
+<script>
+  function playVideo() {
+    document.getElementById('myVideo').play();
+  }
+  function pauseVideo() {
+    document.getElementById('myVideo').pause();
+  }
+</script>
+
 ### Samples on SERV-CT
 ![sample](./assets/sample2.png)
 
