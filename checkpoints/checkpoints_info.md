@@ -1,0 +1,1 @@
+The MobileNet-V4 model used in this study can be downloaded from [MobileNet-V4 (now in timm)](https://huggingface.co/blog/rwightman/mobilenetv4). If you encounter any network issues, you can manually download the `pytorch_model.bin` file and place it into the designated folder, renaming it as necessary. Alternatively, you can directly utilize the model via the `timm` library.
