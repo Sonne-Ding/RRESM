@@ -1,0 +1,70 @@
+model_config:
+  model: lightendostereo 
+  maxdisp: &maxdisp 192
+  agg_net: true
+  dispRefine: true
+  syncBN: true
+
+exp_config:
+  expname: fullSet
+  epochs: 100
+  info: aggnet=true, disprefine=true
+  loadckpt: '' # load only pretrained model state dict
+  logdir: TrainLogs/exp1
+  maxdisp: *maxdisp
+  resume: false # resume training, load optimizer and epoch, the files are retrived from logdir
+  save_freq: 10
+  seed: 6
+  summary_freq: 20
+  val_freq: 2
+  world_size: 2
+  port: '12342'
+  loss: avg_loss 
+  optimizer:
+    name: Adam
+    lr: 0.001
+    betas: [0.9,0.999]
+  lr_scheduler:
+    name: MultiStepLR
+    milestones: [2,10,20,30]
+    gamma: 0.9
+
+scared_test:
+  expname: exp1
+  loadckpt: TrainLogs/exp1/checkpoint_bestEpe.ckpt
+  savedir: results/exp1
+  savefig: 3
+  cuda: [0,1,2,3]
+  workers: 4
+  maxdisp: *maxdisp
+  depth: true
+
+dataset_config:
+  trainSet:
+    root: /path/to/your/SCARED/root # dataset root
+    batch_size: 2
+    num_workers: 2
+    catalog: /path/to/your/data_split.yaml # file name catalog
+    imgReader: rgb_reader # Left, right image reader in Dataset.img_reader
+    dispReader: tiff_reader # disparity image reader in Dataset.img_reader
+    transform: # transforms in Dataset.data_transform
+      - {"name": ToTensor}
+      - {"name": RandomCrop, "output_size": [256, 512], "y_jitter": False}
+  valSet:
+    root: /path/to/your/SCARED/root
+    batch_size: 1
+    num_workers: 4
+    catalog: /path/to/your/data_split.yaml
+    imgReader: rgb_reader
+    dispReader: tiff_reader
+    transform:
+      - {"name": ToTensor}
+  testSet:
+    root: /path/to/your/SCARED/root
+    batch_size: 1
+    num_workers: 0
+    catalog: /path/to/your/data_split.yaml
+    imgReader: rgb_reader
+    dispReader: tiff_reader
+    transform:
+      - {"name": ToTensor}
