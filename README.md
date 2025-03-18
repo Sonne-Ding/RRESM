@@ -62,3 +62,5 @@ Using dataset [SCARED](https://endovissub2019-scared.grand-challenge.org) and [S
 ### Samples on SERV-CT
 ![sample](./assets/sample2.png)
 
+## Acknowledgement
+[OpenStereo](https://github.com/XiandaGuo/OpenStereo)  [scared_toolkit](https://github.com/dimitrisPs/scared_toolkit)
