@@ -5,6 +5,51 @@ Real-time acquisition of accurate depth of scene is essential for automated robo
 ## Framework
 ![framework](./assets/framework.png)
 
+## Dataset Process
+We use [scared_tookit](https://github.com/dimitrisPs/scared_toolkit) to extract the disparity map and depth map of SCARED dataset.
+If you want to use our dataloader, the folder structure should be:
+```
+├── dataset_*/
+│   ├── keyframe_*/
+│   │   ├── data/
+│   │   │   ├── disparity/
+│   │   │   ├── left_rectified/
+│   │   │   └── right_rectified/
+```
+The data file list yaml is :
+```
+train:
+    disparity:
+        - dataset_*/keyframe_*/data/disparity/******.tiff
+    img_l:
+        - dataset_*/keyframe_*/data/left_rectified/******.tiff
+    img_r:
+        - dataset_*/keyframe_*/data/right_rectified/******.tiff
+val:
+    disparity:
+        - dataset_*/keyframe_*/data/disparity/******.tiff
+    img_l:
+        - dataset_*/keyframe_*/data/left_rectified/******.tiff
+    img_r:
+        - dataset_*/keyframe_*/data/right_rectified/******.tiff
+test:
+    dataset_8:
+        disparity:
+            - dataset_8/keyframe_*/data/disparity/******.tiff
+        img_l:
+            - dataset_8/keyframe_*/data/left_rectified/******.tiff
+        img_r:
+            - dataset_8/keyframe_*/data/right_rectified/******.tiff
+    dataset_9:
+        disparity:
+            - dataset_9/keyframe_*/data/disparity/******.tiff
+        img_l:
+            - dataset_9/keyframe_*/data/left_rectified/******.tiff
+        img_r:
+            - dataset_9/keyframe_*/data/right_rectified/******.tiff
+
+```
+
 
 ## Samples
 Using dataset [SCARED](https://endovissub2019-scared.grand-challenge.org) and [SERV-CT](https://www.ucl.ac.uk/interventional-surgical-sciences/weiss-open-research/weiss-open-data-server/serv-ct).
