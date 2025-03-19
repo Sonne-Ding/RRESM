@@ -1,7 +1,6 @@
-from Trainers.scared_trainer import worker
+from Trainers.lightendostereo_trainer import worker
 import torch
 import yaml
-# import tomlkit
 from torch import multiprocessing as mp
 import os
 from tools.exp_container import ConfigDataContainer
