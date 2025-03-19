@@ -93,48 +93,43 @@ def train(config, model, trainLoader, testLoader, optimizer, lrScheduler, rank, 
                     "train/loss": loss,
                 })
             global_train_step += 1
-        # saving checkpoints
-        if (epoch_idx + 1) % config.save_freq == 0 and rank == 0:
-            checkpoint_data = {'epoch': epoch_idx, 'model': model.module.state_dict(), 'optimizer': optimizer.state_dict()}
-            torch.save(checkpoint_data, "{}/checkpoint_{:0>6}.ckpt".format(config.logdir, epoch_idx))
-        lrScheduler.step()
-        if (epoch_idx + 1) % config.val_freq == 0:
-            avg_test_scalars = AverageMeterDict()
-            for batch_idx, sample in enumerate(testLoader):
-                if flag[0]:
-                    raise InterruptedError("Interrupted by other process.")
-                start_time = time.time()
-                do_summary = global_val_step % config.summary_freq == 0
-                loss, scalar_outputs = test_sample(model, sample,config.maxdisp, lossFunc,compute_metrics=do_summary)
-                avg_test_scalars.update(scalar_outputs)
-                del scalar_outputs
+            if global_train_step % config.val_freq == 0:
+                avg_test_scalars = AverageMeterDict()
+                for batch_idx, sample in enumerate(testLoader):
+                    if flag[0]:
+                        raise InterruptedError("Interrupted by other process.")
+                    start_time = time.time()
+                    do_summary = global_val_step % config.summary_freq == 0
+                    loss, scalar_outputs = test_sample(model, sample,config.maxdisp, lossFunc,compute_metrics=do_summary)
+                    avg_test_scalars.update(scalar_outputs)
+                    del scalar_outputs
+                    if rank==0:
+                        msg_logger.info('Epoch {}/{}, Iter {}/{}, test loss = {:.3f}, time = {:3f}'.format(epoch_idx, config.epochs,batch_idx, len(testLoader), loss, time.time() - start_time))
+                        wandb.log({
+                            "val/step": global_val_step,
+                            "val/loss": loss,  # 使用 "test_loss" 来区分训练和测试阶段的损失
+                        })
+                    global_val_step += 1
+                avg_test_scalars = avg_test_scalars.mean()
+                if rank == 0:
+                    gather_test_scalers = [dict() for _ in range(dist.get_world_size())]
+                    dist.gather_object(avg_test_scalars, gather_test_scalers, dst=0)
+                else:
+                    dist.gather_object(avg_test_scalars, None, dst=0)
+                dist.barrier()
                 if rank==0:
-                    msg_logger.info('Epoch {}/{}, Iter {}/{}, test loss = {:.3f}, time = {:3f}'.format(epoch_idx, config.epochs,batch_idx, len(testLoader), loss, time.time() - start_time))
-                    wandb.log({
-                        "val/step": global_val_step,
-                        "val/loss": loss,  # 使用 "test_loss" 来区分训练和测试阶段的损失
-                    })
-                global_val_step += 1
-            avg_test_scalars = avg_test_scalars.mean()
-            if rank == 0:
-                gather_test_scalers = [dict() for _ in range(dist.get_world_size())]
-                dist.gather_object(avg_test_scalars, gather_test_scalers, dst=0)
-            else:
-                dist.gather_object(avg_test_scalars, None, dst=0)
-            dist.barrier()
-            if rank==0:
-                avg_test_scalars = merge_dicts(gather_test_scalers)
-                msg_logger.info(f"avg_test_scalars: {avg_test_scalars}")
-                metric_wandb = {}
-                for k,v in avg_test_scalars.items():
-                    metric_wandb[f"val/{k}"] = v
-                metric_wandb["epoch"] = epoch_idx
-                wandb.log(metric_wandb)
-                test_epe_mean = np.mean(avg_test_scalars["EPE"])
-                if test_epe_mean < best_epe:
-                    best_epe = test_epe_mean
-                    checkpoint_data = {'epoch': epoch_idx, 'model': model.module.state_dict(), 'optimizer': optimizer.state_dict()}
-                    torch.save(checkpoint_data, "{}/checkpoint_bestEpe.ckpt".format(config.logdir))
+                    avg_test_scalars = merge_dicts(gather_test_scalers)
+                    msg_logger.info(f"avg_test_scalars: {avg_test_scalars}")
+                    metric_wandb = {}
+                    for k,v in avg_test_scalars.items():
+                        metric_wandb[f"val/{k}"] = v
+                    metric_wandb["epoch"] = epoch_idx
+                    wandb.log(metric_wandb)
+                    test_epe_mean = np.mean(avg_test_scalars["EPE"])
+                    if test_epe_mean < best_epe:
+                        best_epe = test_epe_mean
+                        checkpoint_data = {'epoch': epoch_idx, 'model': model.module.state_dict(), 'optimizer': optimizer.state_dict()}
+                        torch.save(checkpoint_data, "{}/checkpoint_bestEpe.ckpt".format(config.logdir))
             gc.collect()
     if rank==0:
         msg_logger.info(f"The best epe={best_epe}")
@@ -253,9 +248,6 @@ def get_model_optimizer_lrScheduler(model_config, exp_config):
         model = nn.SyncBatchNorm.convert_sync_batchnorm(model).to(torch.cuda.current_device())
     else:
         model = model.to(torch.cuda.current_device())
-    # optimizer = getattr(optim, exp_config.optimizer.name)(params=model.parameters(),
-    #                                                       lr=exp_config.optimizer.lr,
-    #                                                       betas=tuple(exp_config.optimizer.betas))
     # fetch optimizer
     feature_group, other_group = group_params(model)
     optimizer = getattr(optim, exp_config.optimizer.name)([

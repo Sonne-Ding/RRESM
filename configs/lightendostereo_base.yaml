@@ -14,10 +14,9 @@ exp_config:
   logdir: TrainLogs/exp1
   maxdisp: *maxdisp
   resume: false # resume training, load optimizer and epoch, the files are retrived from logdir
-  save_freq: 10
   seed: 6
   summary_freq: 20
-  val_freq: 2
+  val_freq: 500 # validate per val_freq iterations
   world_size: 2
   port: '12342'
   loss: avg_loss 
