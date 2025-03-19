@@ -6,6 +6,7 @@ model_config:
   syncBN: true
 
 exp_config:
+  project: LightEndoStereo
   expname: fullSet
   epochs: 100
   info: aggnet=true, disprefine=true

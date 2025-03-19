@@ -63,7 +63,7 @@ def train(config, model, trainLoader, testLoader, optimizer, lrScheduler, rank, 
     if rank == 0:
         msg_logger = BaseLogger(config.logdir)
         msg_logger.info(config.info)
-        init_wandb(proj="GwcNet",
+        init_wandb(proj=config.project,
                    expname=config.expname,
                    expinfo=config.info)
     # load parameters
