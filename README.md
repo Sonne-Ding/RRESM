@@ -1,5 +1,6 @@
 # LightEndoStereo
 [Arxiv](https://arxiv.org/abs/2503.00731)
+
 Real-time acquisition of accurate depth of scene is essential for automated robotic minimally invasive surgery, and stereo matching with binocular endoscopy can generate such depth. However, existing algorithms struggle with ambiguous tissue boundaries and real-time performance in prevalent high-resolution endoscopic scenes. We propose LightEndoStereo, a lightweight real-time stereo matching method for endoscopic images. We introduce a 3D Mamba Coordinate Attention module to streamline the cost aggregation process by generating position-sensitive attention maps and capturing long-range dependencies across spatial dimensions using the Mamba block. Additionally, we introduce a High-Frequency Disparity Optimization module to refine disparity estimates at tissue boundaries by enhancing high-frequency information in the wavelet domain. Our method is evaluated on the SCARED and SERV-CT datasets, achieving state-of-the-art matching accuracy and a real-time inference speed of __42 FPS__.
 
 ## Framework
@@ -63,4 +64,4 @@ Using dataset [SCARED](https://endovissub2019-scared.grand-challenge.org) and [S
 ![sample](./assets/sample2.png)
 
 ## Acknowledgement
-[OpenStereo](https://github.com/XiandaGuo/OpenStereo)   [scared toolkit](https://github.com/dimitrisPs/scared_toolkit)
+[OpenStereo](https://github.com/XiandaGuo/OpenStereo)    [scared toolkit](https://github.com/dimitrisPs/scared_toolkit)
