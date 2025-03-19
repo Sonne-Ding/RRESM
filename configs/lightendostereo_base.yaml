@@ -7,7 +7,7 @@ model_config:
 
 exp_config:
   project: LightEndoStereo
-  expname: fullSet
+  expname: exp1
   epochs: 100
   info: aggnet=true, disprefine=true
   loadckpt: '' # load only pretrained model state dict
@@ -17,8 +17,6 @@ exp_config:
   seed: 6
   summary_freq: 20
   val_freq: 500 # validate per val_freq iterations
-  world_size: 2
-  port: '12342'
   loss: avg_loss 
   optimizer:
     name: Adam

@@ -1,1 +1,1 @@
-CUDA_VISIBLE_DEVICES=2,3 python run_train.py
+CUDA_VISIBLE_DEVICES=2,3 torchrun --standalone --nnodes=1 --nproc-per-node=2 run_train.py

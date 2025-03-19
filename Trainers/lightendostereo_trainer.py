@@ -185,9 +185,9 @@ def test_sample(model, sample, maxdisp, lossFunc,compute_metrics=True):
     scalar_outputs["Thres3"] = [Thres_metric(disp_est, disp_gt, mask, 3.0) for disp_est in disp_ests]
     return tensor2float(loss), tensor2float(scalar_outputs)
 
-def setup_DDP(rank, world_size, port):
-    os.environ['MASTER_ADDR'] = 'localhost'
-    os.environ['MASTER_PORT'] = port
+def setup_DDP():
+    rank = int(os.environ['RANK'])
+    world_size = int(os.environ['WORLD_SIZE'])
     dist.init_process_group("nccl", rank=rank, world_size=world_size,)
     torch.cuda.set_device(rank)
     dist.barrier()
@@ -260,8 +260,9 @@ def get_model_optimizer_lrScheduler(model_config, exp_config):
     return model, optimizer, lrScheduler
 
 @safe_procs
-def worker(rank, config, flag):
-    setup_DDP(rank, config.exp_config.world_size, config.exp_config.port)
+def worker(config, flag):
+    setup_DDP()
+    rank = int(os.environ['RANK'])
     trainloader = get_trainloader(config.dataset_config.trainSet)
     testloader = get_testloader(config.dataset_config.valSet)
     model, optimizer, lrScheduler = get_model_optimizer_lrScheduler(config.model_config, config.exp_config)
