@@ -41,26 +41,22 @@ def wandb_log_result(proj, expname, data_dict):
 
 
 if __name__=="__main__":
-    config_file = "configs/GwcNet/gwcdynet_abl11.yaml"
-    # config_file = "configs/GwcNet/ms_eval.yaml"
+    config_file = "configs/lightendostereo_base.yaml"
     with open(config_file, mode='r') as rf:
         config = yaml.safe_load(rf)
     config = ConfigDataContainer(**config)
     # inference_time(config)
-    viz_all_outputs(config,"results/ablaton11/viz_folder")
-    # param_queue = [(config, "dataset_8", "keyframe_1"),]
-    # # param_queue = [(config, "dataset_8", "keyframe_0"),(config, "dataset_8", "keyframe_1"),
-    # #                (config, "dataset_8", "keyframe_2"),(config, "dataset_8", "keyframe_3"),
-    # #                (config, "dataset_8", "keyframe_4"),(config, "dataset_9", "keyframe_0"),
-    # #                (config, "dataset_9", "keyframe_1"),(config, "dataset_9", "keyframe_2"),
-    # #                (config, "dataset_9", "keyframe_3"),(config, "dataset_9", "keyframe_4")
-    # #                ]
-    # # worker(config, "dataset_8", "keyframe_0")
-    # with mp.Pool(processes=config.scared_test.workers) as pool:
-    #     results = pool.starmap(worker, param_queue)
+    # viz_all_outputs(config,"results/ablaton11/viz_folder")
+    param_queue = [(config, "dataset_8", "keyframe_0"),(config, "dataset_8", "keyframe_1"),
+                   (config, "dataset_8", "keyframe_2"),(config, "dataset_8", "keyframe_3"),
+                   (config, "dataset_8", "keyframe_4"),(config, "dataset_9", "keyframe_0"),
+                   (config, "dataset_9", "keyframe_1"),(config, "dataset_9", "keyframe_2"),
+                   (config, "dataset_9", "keyframe_3"),(config, "dataset_9", "keyframe_4")
+                   ]
+    with mp.Pool(processes=config.scared_test.workers) as pool:
+        results = pool.starmap(worker, param_queue)
 
-    # results = concat_result_dicts(results)
-    # # wandb_log_result("GwcNet", config.scared_test.expname, results)
-    # with open(osp.join(config.scared_test.savedir, 'best_epe.yaml'), mode='w') as wf:
-    #     yaml.dump(results, wf)
-    # yaml2csv(osp.join(config.scared_test.savedir, 'best_epe.yaml')) 
+    results = concat_result_dicts(results)
+    with open(osp.join(config.scared_test.savedir, 'best_epe.yaml'), mode='w') as wf:
+        yaml.dump(results, wf)
+    yaml2csv(osp.join(config.scared_test.savedir, 'best_epe.yaml')) 

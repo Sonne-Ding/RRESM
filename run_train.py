@@ -18,7 +18,7 @@ def load_config(config_fp):
     return config
 
 if __name__=="__main__":
-    config_file = "configs/GwcNet/gwcdynet_abl20.yaml"
+    config_file = "configs/lightendostereo_base.yaml"
     config = load_config(config_file)
     # flag==True，终止进程，用于解决单个进程异常，但是其他进程正常时，无法正常退出的情况
     flag = torch.tensor([False], dtype=torch.bool).share_memory_()
