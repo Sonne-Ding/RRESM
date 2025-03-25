@@ -4,7 +4,7 @@
 <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/Sonne-Ding/LightEndoStereo?style=flat&color=green">
 </a>
 <a href="https://arxiv.org/abs/2503.00731">
-<img alt="Static Badge" src="https://img.shields.io/badge/ArXiv-2503.00731-brightgreen?style=flat&color=red">
+<img alt="Static Badge" src="https://img.shields.io/badge/arXiv-2503.00731-red">
 </a>
 </div>
 
