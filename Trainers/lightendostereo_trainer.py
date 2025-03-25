@@ -44,9 +44,11 @@ def merge_dicts(dicts_list):
     return avg_dict
     
 def init_wandb(proj, expname, expinfo):
-    wandb.init(project=proj,
-               name=expname,
-               notes=expinfo)
+    wandb.init(
+        project=proj,        
+        name=expname,
+    
+        notes=expinfo)
     wandb.define_metric("train/step")
     wandb.define_metric("val/step")
     wandb.define_metric("epoch")
