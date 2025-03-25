@@ -1,9 +1,9 @@
 # LightEndoStereo
 <div>
-<a herf="https://github.com/Sonne-Ding/LightEndoStereo">
+<a href="https://github.com/Sonne-Ding/LightEndoStereo">
 <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/Sonne-Ding/LightEndoStereo?style=flat&color=green">
 </a>
-<a herf="https://arxiv.org/abs/2503.00731">
+<a href="https://arxiv.org/abs/2503.00731">
 <img alt="Static Badge" src="https://img.shields.io/badge/ArXiv-2503.00731-brightgreen?style=flat&color=red">
 </a>
 </div>
