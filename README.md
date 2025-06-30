@@ -1,4 +1,4 @@
-# Robust Real-Time Endoscopic Stereo Matching under Fuzzy Tissue Boundaries
+# RRESM
 <div>
 <a href="https://github.com/Sonne-Ding/LightEndoStereo">
 <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/Sonne-Ding/LightEndoStereo?style=flat&color=green">
