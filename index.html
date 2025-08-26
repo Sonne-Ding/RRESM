@@ -1,10 +1,168 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-    <title>My Project Page</title>
+  <meta charset="utf-8"/>
+  <title>LightEndoStereo – Demo & Samples</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+
+  <!-- 滑动对比组件 -->
+  <script type="module"
+          src="https://unpkg.com/img-comparison-slider@8/dist/index.js"></script>
+
+  <style>
+    /* ---- CSS 变量（方便一键换色） ---- */
+    :root{
+      --max-width: 1100px;
+      --radius: 12px;
+      --bg: #f6f8fa;
+      --card-bg: #ffffff;
+      --text: #24292e;
+      --text-light: #586069;
+      --link: #0366d6;
+      --gradient: linear-gradient(135deg,#4facfe 0%, #00f2fe 100%);
+    }
+
+    /* ---- 基础排版 ---- */
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.65;
+      -webkit-font-smoothing:antialiased;
+    }
+    .container{
+      max-width:var(--max-width);
+      margin:auto;
+      padding:2.5rem 1.25rem;
+    }
+    h1,h2,h3{line-height:1.25;margin:0}
+    h1{
+      font-size:2.75rem;
+      font-weight:800;
+      background:var(--gradient);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      margin-bottom:1rem;
+    }
+    h2{
+      font-size:1.75rem;
+      font-weight:700;
+      margin:3.5rem 0 1.5rem;
+      color:var(--text);
+    }
+    h3{
+      font-size:1.25rem;
+      font-weight:600;
+      margin:2rem 0 1rem;
+    }
+    p{margin:0 0 1rem;color:var(--text-light)}
+    a{color:var(--link);text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    /* ---- 卡片通用样式 ---- */
+    .card{
+      background:var(--card-bg);
+      border-radius:var(--radius);
+      box-shadow:0 2px 8px rgba(0,0,0,.06);
+      padding:2rem;
+      margin:2rem 0;
+    }
+    .card img, .card video{
+      width:100%;
+      height:auto;
+      border-radius:calc(var(--radius) - 4px);
+    }
+
+    /* ---- 滑动对比 ---- */
+    .slider-wrap{
+      display:flex;
+      justify-content:center;
+      margin:0;
+    }
+    img-comparison-slider{
+      width:100%;
+      max-width:900px;   /* 比 card 略小，观感舒适 */
+      border-radius:calc(var(--radius) - 4px);
+    }
+
+    /* ---- 移动端微调 ---- */
+    @media (max-width: 768px){
+      .container{padding:1.5rem 1rem}
+      h1{font-size:2.25rem}
+      h2{margin:2.5rem 0 1rem}
+      .card{padding:1.25rem}
+    }
+  </style>
 </head>
+
 <body>
-    <h1>Hello, GitHub Pages!</h1>
-    <p>这是通过 gh-pages 分支部署的项目主页。</p>
+<div class="container">
+
+  <h1>LightEndoStereo</h1>
+
+  <!-- Badges -->
+  <p>
+    <a href="https://github.com/Sonne-Ding/LightEndoStereo">
+      <img alt="GitHub Repo stars"
+           src="https://img.shields.io/github/stars/Sonne-Ding/LightEndoStereo?style=flat&color=green">
+    </a>
+    <a href="https://arxiv.org/abs/2503.00731">
+      <img alt="arXiv" src="https://img.shields.io/badge/arXiv-2503.00731-red">
+    </a>
+  </p>
+
+  <!-- Framework -->
+  <h2>Framework</h2>
+  <div class="card">
+    <img src="https://github.com/Sonne-Ding/LightEndoStereo/blob/main/assets/framework.png?raw=true"
+         alt="Framework">
+    <p>
+      We introduce a 3D Mamba Coordinate Attention module to streamline the cost aggregation process
+      by generating position-sensitive attention maps and capturing long-range dependencies across
+      spatial dimensions using the Mamba block. Additionally, we introduce a High-Frequency Disparity
+      Optimization module to refine disparity estimates at tissue boundaries by enhancing
+      high-frequency information in the wavelet domain.
+    </p>
+  </div>
+
+  <!-- Samples -->
+  <h2>Samples</h2>
+
+  <!-- SCARED -->
+  <h3>SCARED</h3>
+  <div class="card">
+    <video controls width="100%">
+      <source src="https://raw.githubusercontent.com/Sonne-Ding/LightEndoStereo/main/assets/videos/LightEndoStereo_demo.mp4"
+              type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <div class="card">
+    <img src="https://github.com/Sonne-Ding/LightEndoStereo/blob/main/assets/sample1.png?raw=true"
+         alt="Sample on SCARED">
+  </div>
+
+  <!-- SERV-CT -->
+  <h3>Samples on SERV-CT</h3>
+  <div class="card">
+    <img src="https://github.com/Sonne-Ding/LightEndoStereo/blob/main/assets/sample2.png?raw=true"
+         alt="Sample on SERV-CT">
+  </div>
+
+  <!-- 本地滑动对比 Demo -->
+  <h2>Local Image-Comparison Demo</h2>
+  <div class="card">
+    <div class="slider-wrap">
+      <img-comparison-slider>
+        <img slot="first"  src="./assets/imgL.png"   alt="RGB"/>
+        <img slot="second" src="./assets/depthL.png" alt="Depth"/>
+      </img-comparison-slider>
+    </div>
+  </div>
+
+</div>
 </body>
 </html>
