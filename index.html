@@ -45,6 +45,21 @@
       overflow: hidden;
       margin-bottom: 2rem;
     }
+    .card-slide {
+      width: 80%;
+      height: auto;
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    /* 任何元素只要加 .card-wide 就会按这个尺寸显示 */
+    .card-wide {
+      width: 150%;
+      height: auto;
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+    }
     .card img, .card video {
       width: 100%;
       height: auto;
@@ -90,7 +105,7 @@
                 <a href="#" target="_blank">Yaqi Wang<sup>2</sup></a>
               </span>
               <span class="author-block">
-                <a href="#" target="_blank">Dahong Qian<sup>1</sup></a>
+                <a href="#" target="_blank">Dahong Qian<sup>1*</sup></a>
               </span>
             </div>
 
@@ -195,7 +210,7 @@
             </video/b>
           </div>
 
-          <div class="card">
+          <div class="card-wide">
             <img src="https://github.com/Sonne-Ding/LightEndoStereo/blob/main/assets/sample1.png?raw=true" alt="Sample on SCARED">
           </div>
         </div>
@@ -205,7 +220,7 @@
       <div class="columns is-centered">
         <div class="column is-four-fifths">
           <h3 class="title is-4 has-text-centered">SERV-CT</h3>
-          <div class="card">
+          <div class="card-wide">
             <img src="https://github.com/Sonne-Ding/LightEndoStereo/blob/main/assets/sample2.png?raw=true" alt="Sample on SERV-CT">
           </div>
         </div>
@@ -224,7 +239,7 @@
 
       <div class="columns is-centered">
         <div class="column is-four-fifths">
-          <div class="card">
+          <div class="card-slide">
             <div class="slider-wrap">
               <img-comparison-slider>
                 <img slot="first" src="./assets/imgL.png" alt="RGB"/>
