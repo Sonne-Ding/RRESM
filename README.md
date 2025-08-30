@@ -1,5 +1,4 @@
-# RRESM
-"Robust Real-Time Endoscopic Stereo Matching under Fuzzy Tissue Boundaries".
+# RRESM: Robust Real-Time Endoscopic Stereo Matching under Fuzzy Tissue Boundaries
 
 <div>
 <a href="https://github.com/Sonne-Ding/LightEndoStereo">
