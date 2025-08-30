@@ -95,7 +95,7 @@
             </div>
 
             <div class="is-size-5 publication-authors">
-              <span class="author-block"><sup>1</sup>sup>Shanghai Jiao Tong University<br>
+              <span class="author-block"><sup>1</sup>Shanghai Jiao Tong University<br>
               <sup>2</sup>Hangzhou Dianzi University</span>
             </div>
 
@@ -156,23 +156,19 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
         <div class="column is-four-fifths">
-          <h2 class="title is-3">Framework</h2>
+          <h2 class="title is-3">Abstrct</h2>
         </div>
       </div>
 
       <div class="columns is-centered">
         <div class="column is-four-fifths">
           <div class="card">
-            <img src="https://github.com/Sonne-Ding/LightEndoStereo/blob/main/assets/framework.png?raw=true" alt="Framework">
             <div class="card-content">
               <p>
-                We introduce a 3D Mamba Coordinate Attention module to streamline the cost aggregation process
-                by generating position-sensitive attention maps and capturing long-range dependencies across
-                spatial dimensions using the Mamba block. Additionally, we introduce a High-Frequency Disparity
-                Optimization module to refine disparity estimates at tissue boundaries by enhancing
-                high-frequency information in the wavelet domain.
+                Real-time acquisition of accurate scene depth is essential for automated robotic minimally invasive surgery. Stereo matching with binocular endoscopy can provide this depth information. However, existing stereo matching methods, designed primarily for natural images, often struggle with endoscopic images due to fuzzy tissue boundaries and typically fail to meet real-time requirements for high-resolution endoscopic image inputs. To address these challenges, we propose <b>RRESM</b>, a real-time stereo matching method tailored for endoscopic images. Our approach integrates a 3D Mamba Coordinate Attention module that enhances cost aggregation through position-sensitive attention maps and long-range spatial dependency modeling via the Mamba block, generating a robust cost volume without substantial computational overhead. Additionally, we introduce a High-Frequency Disparity Optimization module that refines disparity predictions near tissue boundaries by amplifying high-frequency details in the wavelet domain. Evaluations on the SCARED and SERV-CT datasets demonstrate state-of-the-art matching accuracy with a real-time inference speed of 42 FPS. 
               </p>
             </div>
+            <img src="https://github.com/Sonne-Ding/LightEndoStereo/blob/main/assets/framework.png?raw=true" alt="Framework">
           </div>
         </div>
       </div>
@@ -184,7 +180,7 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
         <div class="column is-four-fifths">
-          <h2 class="title is-3">Samples</h2>
+          <h2 class="title is-3">Samples on Different Datasets</h2>
         </div>
       </div>
 
@@ -196,7 +192,7 @@
             <video controls width="100%">
               <source src="https://raw.githubusercontent.com/Sonne-Ding/LightEndoStereo/main/assets/videos/LightEndoStereo_demo.mp4" type="video/mp4">
               Your browser does not support the video tag.
-            </video>
+            </video/b>
           </div>
 
           <div class="card">
@@ -222,7 +218,7 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
         <div class="column is-four-fifths">
-          <h2 class="title is-3">Image Comparison Demo</h2>
+          <h2 class="title is-3">TESTING VIZ(will update later)</h2>
         </div>
       </div>
 
@@ -246,7 +242,7 @@
     <div class="container">
       <div class="content has-text-centered">
         <p>
-          <strong>LightEndoStereo</strong> by the authors. The source code is licensed under
+          <strong>RRESM</strong> by the authors. The source code is licensed under
           <a href="#">MIT License</a>.
         </p>
       </div>
