@@ -1,9 +1,13 @@
 # RRESM: Robust Real-Time Endoscopic Stereo Matching under Fuzzy Tissue Boundaries
 ---
 <div>
+
 [![Github Repo stars](https://img.shields.io/github/stars/Sonne-Ding/LightEndoStereo?style=flat&color=green)](https://github.com/Sonne-Ding/LightEndoStereo)
+
 [![Arxiv Paper](https://img.shields.io/badge/arXiv-2503.00731-red)](https://arxiv.org/abs/2503.00731)
+
 [![Project Page](https://img.shields.io/badge/Project-Page-blue?style=flat&link=https%3A%2F%2Fsunny-ding.cn%2FRRESM%2F%20)](https://sunny-ding.cn/RRESM)
+
 </div>
 
 Real-time acquisition of accurate depth of scene is essential for automated robotic minimally invasive surgery, and stereo matching with binocular endoscopy can generate such depth. However, existing algorithms struggle with ambiguous tissue boundaries and real-time performance in prevalent high-resolution endoscopic scenes. We propose LightEndoStereo, a lightweight real-time stereo matching method for endoscopic images. We introduce a 3D Mamba Coordinate Attention module to streamline the cost aggregation process by generating position-sensitive attention maps and capturing long-range dependencies across spatial dimensions using the Mamba block. Additionally, we introduce a High-Frequency Disparity Optimization module to refine disparity estimates at tissue boundaries by enhancing high-frequency information in the wavelet domain. Our method is evaluated on the SCARED and SERV-CT datasets, achieving state-of-the-art matching accuracy and a real-time inference speed of __42 FPS__.
