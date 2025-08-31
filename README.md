@@ -5,6 +5,7 @@
 ---
 
 [![Github Repo stars](https://img.shields.io/github/stars/Sonne-Ding/LightEndoStereo?style=flat&color=green)](https://github.com/Sonne-Ding/LightEndoStereo)
+[![GitHub forks](https://img.shields.io/github/forks/Sonne-Ding/LightEndoStereo)](https://github.com/Sonne-Ding/LightEndoStereo/fork)
 [![Arxiv Paper](https://img.shields.io/badge/arXiv-2503.00731-red)](https://arxiv.org/abs/2503.00731)
 [![Project Page](https://img.shields.io/badge/Project-Page-blue?style=flat&link=https%3A%2F%2Fsunny-ding.cn%2FRRESM%2F%20)](https://sunny-ding.cn/RRESM)
 
