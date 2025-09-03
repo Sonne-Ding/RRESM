@@ -2,266 +2,248 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="Robust Real-Time Endoscopic Stereo Matching under Fuzzy Tissue Boundaries">
-  <meta name="keywords" content="stereo matching, endoscopic surgery, deep learning, 3D reconstruction">
+  <meta name="description"
+        content="Robust Real-Time Endoscopic Stereo Matching under Fuzzy Tissue Boundaries">
+  <meta name="keywords"
+        content="stereo matching, endoscopic surgery, deep learning, 3D reconstruction">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RRESM: Robust Real-Time Endoscopic Stereo Matching</title>
 
-  <title>Robust Real-Time Endoscopic Stereo Matching under Fuzzy Tissue Boundaries </title>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
 
-  <!-- Bulma CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- 滑动对比组件 -->
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/nerfies/nerfies.github.io@main/static/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/nerfies/nerfies.github.io@main/static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/nerfies/nerfies.github.io@main/static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/nerfies/nerfies.github.io@main/static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/nerfies/nerfies.github.io@main/static/css/index.css">
+  <link rel="icon" href="https://cdn.jsdelivr.net/gh/nerfies/nerfies.github.io@main/static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/gh/nerfies/nerfies.github.io@main/static/js/fontawesome.all.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/nerfies/nerfies.github.io@main/static/js/bulma-carousel.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/nerfies/nerfies.github.io@main/static/js/bulma-slider.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/nerfies/nerfies.github.io@main/static/js/index.js"></script>
+
   <script type="module" src="https://unpkg.com/img-comparison-slider@8/dist/index.js"></script>
-
-  <style>
-    /* 自定义样式 */
-    .hero {
-      background: #fff;
-    }
-    .publication-title,
-    .publication-authors a {
-      color: #363636;
-    }
-    .publication-title {
-      margin-bottom: 1.5rem;
-    }
-    .publication-authors a {
-      text-decoration: underline;
-    }
-    .author-block {
-      margin-right: 0.5rem;
-    }
-    .link-block {
-      margin: 0.5rem;
-    }
-    .teaser {
-      padding: 3rem 1.5rem;
-    }
-    .card {
-      box-shadow: 0 2px 8px rgba(0,0,0,.06);
-      border-radius: 8px;
-      overflow: hidden;
-      margin-bottom: 2rem;
-    }
-    .card-slide {
-      width: 80%;
-      height: auto;
-      position: relative;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-    /* 任何元素只要加 .card-wide 就会按这个尺寸显示 */
-    .card-wide {
-      width: 150%;
-      height: auto;
-      position: relative;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-    .card img, .card video {
-      width: 100%;
-      height: auto;
-    }
-    img-comparison-slider {
-      width: 100%;
-      --divider-width: 2px;
-      --divider-color: #4facfe;
-      --default-handle-color: #4facfe;
-    }
-    .has-gradient-text {
-      background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .badges {
-      margin-bottom: 1.5rem;
-    }
-  </style>
+  <link rel="stylesheet" href="https://unpkg.com/img-comparison-slider@8/dist/styles.css"/>
 </head>
 
 <body>
-  <!-- 顶部标题区域 -->
-  <section class="hero">
+
+<!-- ============ NAVBAR ============ -->
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://sunny-ding.cn">
+        <span class="icon"><i class="fas fa-home"></i></span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO / TITLE ============ -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">
+            Robust Real-Time Endoscopic Stereo Matching under Fuzzy Tissue Boundaries
+          </h1>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><a href="#">Yang Ding<sup>1</sup></a>,</span>
+            <span class="author-block"><a href="#">Can Han<sup>1</sup></a>,</span>
+            <span class="author-block"><a href="#">Sijia Du<sup>1</sup></a>,</span>
+            <span class="author-block"><a href="#">Yaqi Wang<sup>2</sup></a>,</span>
+            <span class="author-block"><a href="#">Dahong Qian<sup>1*</sup></a></span>
+          </div>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Shanghai Jiao Tong University</span>
+<span class="author-block"><sup>2</sup>Hangzhou Dianzi University</span>
+          </div>
+          <div class="publication-links">
+            <span class="link-block">
+              <a href="https://arxiv.org/abs/2503.00731"
+                 class="external-link button is-normal is-rounded is-dark">
+                <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                <span>Paper</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="https://arxiv.org/abs/2503.00731"
+                 class="external-link button is-normal is-rounded is-dark">
+                <span class="icon"><i class="ai ai-arxiv"></i></span>
+                <span>arXiv</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="https://github.com/Sonne-Ding/RRESM"
+                 class="external-link button is-normal is-rounded is-dark">
+                <span class="icon"><i class="fab fa-github"></i></span>
+                <span>Code</span>
+              </a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TEASER VIDEO ============ -->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
     <div class="hero-body">
-      <div class="container is-max-desktop">
-        <div class="columns is-centered">
-          <div class="column has-text-centered">
-            <h1 class="title is-1 publication-title">Robust Real-Time Endoscopic Stereo Matching under Fuzzy Tissue Boundaries</h1>
-
-            <div class="is-size-5 publication-authors">
-              <span class="author-block">
-                <a href="#" target="_blank">Yang Ding<sup>1</sup></a>,
-              </span>
-              <span class="author-block">
-                <a href="#" target="_blank">Can Han<sup>1</sup></a>,
-              </span>
-              <span class="author-block">
-                <a href="#" target="_blank">Sijia Du<sup>1</sup></a>
-              </span>
-              <span class="author-block">
-                <a href="#" target="_blank">Yaqi Wang<sup>2</sup></a>
-              </span>
-              <span class="author-block">
-                <a href="#" target="_blank">Dahong Qian<sup>1*</sup></a>
-              </span>
-            </div>
-
-            <div class="is-size-5 publication-authors">
-              <span class="author-block"><sup>1</sup>Shanghai Jiao Tong University<br>
-              <sup>2</sup>Hangzhou Dianzi University</span>
-            </div>
-
-            <!-- 链接按钮 -->
-            <div class="column has-text-centered">
-              <div class="publication-links">
-                <!-- 论文链接 -->
-                <span class="link-block">
-                  <a href="https://arxiv.org/abs/2503.00731" target="_blank" class="external-link button is-normal is-rounded is-dark">
-                    <span class="icon">
-                      <i class="fas fa-file-pdf" style="color: orangered"></i>
-                    </span>
-                    <span>Paper</span>
-                  </a>
-                </span>
-
-                <!-- 代码链接 -->
-                <span class="link-block">
-                  <a href="https://github.com/Sonne-Ding/RRESM" target="_blank" class="external-link button is-normal is-rounded is-dark">
-                    <span class="icon">
-                      <i class="fab fa-github"></i>
-                    </span>
-                    <span>Code</span>
-                  </a>
-                </span>
-
-                <!-- Hugging Face 演示链接 (可选) -->
-                <!--
-                <span class="link-block">
-                  <a href="#" target="_blank" class="external-link button is-normal is-rounded is-dark">
-                    <span class="icon">
-                      <i class="fas fa-rocket"></i>
-                    </span>
-                    <span>Demo</span>
-                  </a>
-                </span>
-                -->
-              </div>
-            </div>
-
-            <!-- 徽章 -->
-            <!-- <div class="badges">
-              <a href="https://github.com/Sonne-Ding/LightEndoStereo">
-                <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/Sonne-Ding/LightEndoStereo?style=flat&color=green">
-              </a>
-              <a href="https://arxiv.org/abs/2503.00731">
-                <img alt="arXiv" src="https://img.shields.io/badge/arXiv-2503.00731-red">
-              </a>
-            </div> -->
-          </div>
-        </div>
-      </div>
+      <video id="teaser" autoplay muted loop playsinline height="100%">
+        <source src="https://raw.githubusercontent.com/Sonne-Ding/LightEndoStereo/main/assets/videos/LightEndoStereo_demo.mp4" type="video/mp4">
+      </video>
+      <h2 class="subtitle has-text-centered">
+        RRESM enables <b>real-time</b>, high-quality depth estimation for binocular endoscopic images with fuzzy tissue boundaries.
+      </h2>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- 框架介绍部分 -->
-  <section class="section">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          <h2 class="title is-3">Abstrct</h2>
-        </div>
-      </div>
-
-      <div class="columns is-centered">
-        <div class="column is-four-fifths">
-          <div class="card">
-            <div class="card-content">
-              <p>
-                Real-time acquisition of accurate scene depth is essential for automated robotic minimally invasive surgery. Stereo matching with binocular endoscopy can provide this depth information. However, existing stereo matching methods, designed primarily for natural images, often struggle with endoscopic images due to fuzzy tissue boundaries and typically fail to meet real-time requirements for high-resolution endoscopic image inputs. To address these challenges, we propose <b>RRESM</b>, a real-time stereo matching method tailored for endoscopic images. Our approach integrates a 3D Mamba Coordinate Attention module that enhances cost aggregation through position-sensitive attention maps and long-range spatial dependency modeling via the Mamba block, generating a robust cost volume without substantial computational overhead. Additionally, we introduce a High-Frequency Disparity Optimization module that refines disparity predictions near tissue boundaries by amplifying high-frequency details in the wavelet domain. Evaluations on the SCARED and SERV-CT datasets demonstrate state-of-the-art matching accuracy with a real-time inference speed of 42 FPS. 
-              </p>
-            </div>
-            <img src="https://github.com/Sonne-Ding/LightEndoStereo/blob/main/assets/framework.png?raw=true" alt="Framework">
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 示例部分 -->
-  <section class="section">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          <h2 class="title is-3">Samples on Different Datasets</h2>
-        </div>
-      </div>
-
-      <!-- SCARED 数据集示例 -->
-      <div class="columns is-centered">
-        <div class="column is-four-fifths">
-          <h3 class="title is-4 has-text-centered">SCARED</h3>
-          <div class="card">
-            <video controls width="100%">
-              <source src="https://raw.githubusercontent.com/Sonne-Ding/LightEndoStereo/main/assets/videos/LightEndoStereo_demo.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video/b>
-          </div>
-
-          <div class="card-wide">
-            <img src="https://github.com/Sonne-Ding/LightEndoStereo/blob/main/assets/sample1.png?raw=true" alt="Sample on SCARED">
-          </div>
-        </div>
-      </div>
-
-      <!-- SERV-CT 数据集示例 -->
-      <div class="columns is-centered">
-        <div class="column is-four-fifths">
-          <h3 class="title is-4 has-text-centered">SERV-CT</h3>
-          <div class="card-wide">
-            <img src="https://github.com/Sonne-Ding/LightEndoStereo/blob/main/assets/sample2.png?raw=true" alt="Sample on SERV-CT">
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 图片对比部分 -->
-  <section class="section">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          <h2 class="title is-3">TESTING VIZ(will update later)</h2>
-        </div>
-      </div>
-
-      <div class="columns is-centered">
-        <div class="column is-four-fifths">
-          <div class="card-slide">
-            <div class="slider-wrap">
-              <img-comparison-slider>
-                <img slot="first" src="./assets/imgL.png" alt="RGB"/>
-                <img slot="second" src="./assets/depthL.png" alt="Depth"/>
-              </img-comparison-slider>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 页脚 -->
-  <footer class="footer">
+<!-- ============ CAROUSEL  (示例，可继续加) ============ -->
+<section class="hero is-light is-small">
+  <div class="hero-body">
     <div class="container">
-      <div class="content has-text-centered">
-        <p>
-          <strong>RRESM</strong> by the authors. The source code is licensed under
-          <a href="#">MIT License</a>.
-        </p>
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item">
+          <video autoplay controls muted loop playsinline height="100%">
+            <source src="https://raw.githubusercontent.com/Sonne-Ding/LightEndoStereo/main/assets/videos/LightEndoStereo_demo.mp4" type="video/mp4">
+          </video>
+        </div>
       </div>
     </div>
-  </footer>
+  </div>
+</section>
+
+<!-- ============ ABSTRACT ============ -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Real-time acquisition of accurate scene depth is essential for automated robotic minimally invasive surgery. Stereo matching with binocular endoscopy can provide this depth information. However, existing stereo matching methods, designed primarily for natural images, often struggle with endoscopic images due to fuzzy tissue boundaries and typically fail to meet real-time requirements for high-resolution endoscopic image inputs.
+          </p>
+          <p>
+            To address these challenges, we propose <b>RRESM</b>, a real-time stereo matching method tailored for endoscopic images. Our approach integrates a 3D Mamba Coordinate Attention module that enhances cost aggregation through position-sensitive attention maps and long-range spatial dependency modeling via the Mamba block, generating a robust cost volume without substantial computational overhead. Additionally, we introduce a High-Frequency Disparity Optimization module that refines disparity predictions near tissue boundaries by amplifying high-frequency details in the wavelet domain. Evaluations on the SCARED and SERV-CT datasets demonstrate state-of-the-art matching accuracy with a real-time inference speed of 42 FPS.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FRAMEWORK IMAGE ============ -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Framework Overview</h2>
+        <img src="https://github.com/Sonne-Ding/LightEndoStereo/blob/main/assets/framework.png?raw=true" alt="Framework">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RESULTS IMAGES ============ -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Samples on Different Datasets</h2>
+      </div>
+    </div>
+
+    <!-- SCARED -->
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h3 class="title is-4">SCARED</h3>
+        <img src="https://github.com/Sonne-Ding/LightEndoStereo/blob/main/assets/sample1.png?raw=true" alt="SCARED sample">
+      </div>
+    </div>
+
+    <!-- SERV-CT -->
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h3 class="title is-4">SERV-CT</h3>
+        <img src="https://github.com/Sonne-Ding/LightEndoStereo/blob/main/assets/sample2.png?raw=true" alt="SERV-CT sample">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMPARISON SLIDER (路径保持你原来) ============ -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">TESTING VIZ (will update later)</h2>
+        <img-comparison-slider>
+          <img slot="first" src="./assets/imgL.png" alt="RGB"/>
+          <img slot="second" src="./assets/depthL.png" alt="Depth"/>
+        </img-comparison-slider>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BIBTEX ============ -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{ding2025rresm,
+  title={Robust Real-Time Endoscopic Stereo Matching under Fuzzy Tissue Boundaries},
+  author={Ding, Yang and Han, Can and Du, Sijia and Wang, Yaqi and Qian, Dahong},
+  journal={arXiv preprint arXiv:2503.00731},
+  year={2025}
+}</code></pre>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link" href="https://arxiv.org/abs/2503.00731">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/Sonne-Ding/RRESM">
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content has-text-centered">
+          <p>
+            Site template from <a href="https://github.com/nerfies/nerfies.github.io/tree/main">Nerfies</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
 </body>
 </html>
